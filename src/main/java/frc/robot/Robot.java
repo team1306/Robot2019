@@ -20,7 +20,7 @@ import frc.robot.subsystems.TestSubsystem;
  */
 public class Robot extends TimedRobot {
   public static TestSubsystem subsystem = new TestSubsystem();
-  public static OI oi;
+  public static OI oi = new OI();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    oi = new OI();
   }
 
   /**
