@@ -13,10 +13,10 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class TestCommand extends Command {
-  public TestCommand() {
+public class DriveCommand extends Command {
+  public DriveCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.subsystem);
+    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -27,7 +27,7 @@ public class TestCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.subsystem.runSpark();
+    Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(1),-Robot.oi.primaryJoystick.getRawAxis(5));
   }
 
   // Make this return true when this Command no longer needs to run execute()

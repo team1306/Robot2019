@@ -7,9 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.subsystems.TestSubsystem;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,7 +20,7 @@ import frc.robot.subsystems.TestSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static TestSubsystem subsystem = new TestSubsystem();
+  public static DriveTrain driveTrain = new DriveTrain();
   public static OI oi = new OI();
 
   /**
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
