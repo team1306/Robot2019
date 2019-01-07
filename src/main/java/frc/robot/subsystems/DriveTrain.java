@@ -7,9 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,24 +16,33 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DriveCommand;
 
 /**
- * An example subsystem. You can replace me with your own Subsystem.
+ * Drivetrain subsystem to drive the robot.
  */
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private WPI_TalonSRX leftLeader;
   private WPI_TalonSRX rightLeader;
-  private VictorSPX leftFollower;
-  private VictorSPX rightFollower;
+
+  private WPI_VictorSPX leftFollower;
+  private WPI_VictorSPX rightFollower;
+
   private DifferentialDrive tankDrive;
-  public DriveTrain()
-  {
+
+  public DriveTrain() {
     leftLeader = new WPI_TalonSRX(RobotMap.LeftDriveLeader);
     rightLeader = new WPI_TalonSRX(RobotMap.RightDriveLeader);
+
+    leftFollower = new WPI_VictorSPX(RobotMap.LeftDriveFollower);
+    rightFollower = new WPI_VictorSPX(RobotMap.RightDriveFollower);
+
+    leftFollower.follow(leftLeader);
+    rightFollower.follow(rightLeader);
+
     tankDrive = new DifferentialDrive(leftLeader, rightLeader);
   }
 
-  public void drive(double left,double right){
+  public void drive(double left, double right) {
     tankDrive.tankDrive(left, right);
   }
 

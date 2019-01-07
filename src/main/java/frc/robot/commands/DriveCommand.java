@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * Command to drive the robot based on controller input.
  */
 public class DriveCommand extends Command {
   public DriveCommand() {
@@ -27,7 +27,8 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(1),-Robot.oi.primaryJoystick.getRawAxis(5));
+    Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(1),
+                           -Robot.oi.primaryJoystick.getRawAxis(5));
   }
 
   // Make this return true when this Command no longer needs to run execute()
