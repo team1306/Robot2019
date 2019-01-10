@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
+    oi.cancelAll.cancelWhenPressed(autonomous);
     autonomous.start();
   }
 

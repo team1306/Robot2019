@@ -51,6 +51,6 @@ public class OI {
 
     primaryJoystick = new Joystick(0);
     cancelAll = new JoystickButton(primaryJoystick, 7);
-    cancelAll.cancelWhenPressed(Robot.autonomous);
+    // cancelAll.cancelWhenPressed(Robot.autonomous);
   }
 }
