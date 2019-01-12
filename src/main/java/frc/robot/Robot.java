@@ -84,16 +84,19 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
-    oi.cancelAll.cancelWhenPressed(autonomous);
+    
     autonomous.start();
   }
-
   /**
    * This function is called periodically during autonomous.
    */
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    if(Math.sqrt(Math.pow(oi.primaryJoystick.getRawAxis(0),2) + Math.pow(oi.primaryJoystick.getRawAxis(1),2)) > .75) 
+    {
+    autonomous.cancel();
+    }
   }
 
   @Override
