@@ -23,6 +23,8 @@ import frc.robot.subsystems.DriveTrain;
  * project.
  */
 public class Robot extends TimedRobot {
+  //NetworkTables
+
   // Commands
   public static Command autonomous = null;
   // Subsystems
@@ -67,6 +69,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    try{
+    Network.current.test();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
   }
 
   /**
