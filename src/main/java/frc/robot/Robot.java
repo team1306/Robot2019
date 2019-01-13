@@ -6,7 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
+import edu.wpi.first.vision.*;
+import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,16 +33,25 @@ public class Robot extends TimedRobot {
 
   // Array of all subsystems. Please add all new subsystems to this array
   public final static Subsystem[] allSubsystems = { driveTrain };
-
+  
   public static OI oi = new OI();
 
+  // Robot Vision
+    public static RobotVision vision = null;
+    public static Object vw = new Object();
+    public static RobotVisionPipeline pipe= new RobotVisionPipeline();
+    public static VideoCamera camera = null;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-    CameraServer.getInstance().startAutomaticCapture();
+    camera = CameraServer.getInstance().startAutomaticCapture(0);
+    
+    vision = new RobotVision(camera, pipe,vw);   
+    
+
   }
 
   /**
