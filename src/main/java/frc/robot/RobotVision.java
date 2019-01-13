@@ -51,7 +51,11 @@ public void captureImage(CameraServer server)
     Mat image = new Mat();
     cvsink = server.getVideo(this.camera);
     cvsink.setEnabled(true);
-    cvsink.grabFrame(image);
+    cvsink.grabFrameNoTimeout(image);
+    if(image.empty())
+    {
+        return;
+    }
     vpipe.process(image);
     cvsink.setEnabled(false);
 }
