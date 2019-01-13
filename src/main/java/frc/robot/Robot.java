@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     camera = CameraServer.getInstance().startAutomaticCapture(0);
     
     vision = new RobotVision(camera, pipe,vw);   
-    
+    vision.startThread();
 
   }
 
@@ -78,12 +78,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    Scheduler.getInstance().run();
-    try{
-    Network.current.test();
-    }catch(Exception e){
-      e.printStackTrace();
-    }
+  
   }
 
   /**
@@ -129,6 +124,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    
+    vision.captureImage(CameraServer.getInstance());
   }
 
   /**
