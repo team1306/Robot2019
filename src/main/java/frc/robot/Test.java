@@ -23,7 +23,7 @@ public class Test extends Subsystem {
     motor = new Spark(0);
   }
   @Override
-  public void initDefaultCommand() {
+    public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new runner());
