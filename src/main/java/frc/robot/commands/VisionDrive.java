@@ -7,14 +7,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Names;
 import frc.robot.Robot;
 
 /**
  * Command to drive the robot based on controller input.
  */
-public class DriveCommand extends Command {
-  public DriveCommand() {
+public class VisionDrive extends Command {
+  public VisionDrive() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
   }
@@ -27,7 +29,11 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(1), -Robot.oi.primaryJoystick.getRawAxis(5));
+    NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
+    NetworkTable ntable = ntinst.getTable(Names.visionTableName);
+    NetworkTableEntry angleEntry = ntable.getEntry(Names.visionCenterAngleName);
+    double cosval = Math.cos(Math.PI/2-angleEntry.getDouble(0));
+    Robot.driveTrain.drive(0.25-0.25*cosval,0.25+0.25*cosval);
   }
 
   // Make this return true when this Command no longer needs to run execute()

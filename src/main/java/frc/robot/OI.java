@@ -46,10 +46,15 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
   public Joystick primaryJoystick;
   public Button cancelAll;
+  public Button visionDrive;//dont know if this needs to public
 
   public OI() {
     primaryJoystick = new Joystick(0);
+
     cancelAll = new JoystickButton(primaryJoystick, 7);
-    // cancelAll.cancelWhenPressed(Robot.autonomous);
+    cancelAll.whenPressed(Robot.reset());
+
+    visionDrive= new JoystickButton(primaryJoystick, 1);
+    visionDrive.whenPressed(Robot.visionDrive());
   }
 }

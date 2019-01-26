@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.ResetAll;
+import frc.robot.commands.VisionDrive;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -27,6 +29,13 @@ public class Robot extends TimedRobot {
 
   // Commands
   public static Command autonomous = null;
+  //Does it make sense to keep all commands here?
+  public static Command reset(){
+    return new ResetAll();
+  }
+  public static Command visionDrive(){
+    return new VisionDrive();
+  }
   // Subsystems
   public static DriveTrain driveTrain = new DriveTrain();
 
