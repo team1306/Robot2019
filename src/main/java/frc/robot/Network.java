@@ -35,7 +35,6 @@ public class Network{
         testEntry=getTable(gripBlobTable).getEntry("size");
     }
     public void test(){
-        System.out.println(testEntry.getDoubleArray(new double[]{7.0,7.0,7.0}).length);
     }
     
 }

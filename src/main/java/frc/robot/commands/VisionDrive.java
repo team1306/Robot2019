@@ -32,8 +32,9 @@ public class VisionDrive extends Command {
     NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
     NetworkTable ntable = ntinst.getTable(Names.visionTableName);
     NetworkTableEntry angleEntry = ntable.getEntry(Names.visionCenterAngleName);
-    double cosval = Math.cos(Math.PI/2-angleEntry.getDouble(0));
-    Robot.driveTrain.drive(0.25-0.25*cosval,0.25+0.25*cosval);
+    double cosval = Math.cos(Math.PI/2+(double) (angleEntry.getNumber(Math.PI / 2)));
+    System.out.println(angleEntry.getNumber(0.0));
+    Robot.driveTrain.drive(0.25 - 0.25 * cosval, 0.25 + 0.25 * cosval);
   }
 
   // Make this return true when this Command no longer needs to run execute()
