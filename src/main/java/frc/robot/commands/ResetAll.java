@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
@@ -15,6 +16,8 @@ import frc.robot.Robot;
  * Command to reset all subsystems to default command
  */
 public class ResetAll extends Command {
+
+
     public ResetAll() {
         // Require all subsystems and immediatly release to interrupt all other systems.
         for (Subsystem subsystem : Robot.allSubsystems) {
@@ -35,7 +38,7 @@ public class ResetAll extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return true;
+        return (!Robot.oi.cancelAll.get());
     }
 
     // Called once after isFinished returns true

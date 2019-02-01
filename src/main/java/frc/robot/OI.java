@@ -44,10 +44,10 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
-  public Joystick primaryJoystick;
-  public Button cancelAll;
-  public Button visionDrive;//dont know if this needs to public
-
+  public Joystick primaryJoystick=null;
+  public Button cancelAll=null;
+  public Button visionDrive=null;
+  public static final int driveSpeedAxis=1;
   public OI() {
     primaryJoystick = new Joystick(0);
 

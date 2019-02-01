@@ -23,7 +23,7 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
   private WPI_TalonSRX leftLeader;
   private WPI_TalonSRX rightLeader;
-
+  
   private WPI_VictorSPX leftFollower;
   private WPI_VictorSPX rightFollower;
 
@@ -44,6 +44,10 @@ public class DriveTrain extends Subsystem {
 
   public void drive(double left, double right) {
     tankDrive.tankDrive(left, right);
+  }
+
+  public void arcadeDrive(double speed, double rotation){
+    tankDrive.arcadeDrive(speed, rotation);
   }
 
   @Override

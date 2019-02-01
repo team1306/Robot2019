@@ -10,12 +10,16 @@ package frc.robot.commands;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Names;
+import frc.robot.OI;
 import frc.robot.Robot;
 
 /**
  * Command to drive the robot based on controller input.
  */
 public class VisionDrive extends Command {
+
+  long time=0l;
+
   public VisionDrive() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveTrain);
@@ -24,17 +28,25 @@ public class VisionDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    this.time=System.currentTimeMillis();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double magnitude=-Robot.oi.primaryJoystick.getRawAxis(OI.driveSpeedAxis);//the forward speed of the robot
+    if(System.currentTimeMillis()<time+2000l){
+      //If less than one second in to the command, implement minumum speed to facilitate convergance.
+      magnitude=Math.max(magnitude,0.5);
+      System.out.println("Overriding Stick Input for Vision Drive");
+    }
+    System.out.println(System.currentTimeMillis()+" - "+time);
     NetworkTableInstance ntinst = NetworkTableInstance.getDefault();
     NetworkTable ntable = ntinst.getTable(Names.visionTableName);
     NetworkTableEntry angleEntry = ntable.getEntry(Names.visionCenterAngleName);
-    double cosval = Math.cos(Math.PI/2+(double) (angleEntry.getNumber(Math.PI / 2)));
-    System.out.println(angleEntry.getNumber(0.0));
-    Robot.driveTrain.drive(0.25 - 0.25 * cosval, 0.25 + 0.25 * cosval);
+    double turnVal=Math.min(Math.max((double)(angleEntry.getNumber(0.0)),-0.55),0.55);
+    Robot.driveTrain.arcadeDrive(magnitude,turnVal);
+    System.out.println("Vision Drive Magnitude: "+magnitude);
   }
 
   // Make this return true when this Command no longer needs to run execute()
