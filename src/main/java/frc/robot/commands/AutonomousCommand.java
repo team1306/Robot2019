@@ -15,8 +15,14 @@ import frc.robot.Robot;
  */
 public class AutonomousCommand extends Command {
 
+  /**
+   * Class constructor. 
+   * 
+   * Requires all subsystems to ensure no interfierance.
+   * 
+   * !!Class not ready
+   */
   public AutonomousCommand() {
-    // Use requires() here to declare subsystem dependencies
     for (int i = 0; i < Robot.allSubsystems.length; i++) {
       requires(Robot.allSubsystems[i]);
     }
@@ -30,6 +36,7 @@ public class AutonomousCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    //TODO: More than drive forward. 
     Robot.driveTrain.drive(0.5, 0.5);
   }
 

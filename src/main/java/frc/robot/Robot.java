@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,6 +15,7 @@ import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.ResetAll;
 import frc.robot.commands.VisionDrive;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.util.OI;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
 
   // Commands
   public static Command autonomous = null;
-  //Does it make sense to keep all commands here?
   public static Command reset(){
     return new ResetAll();
   }
@@ -77,11 +76,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-    try{
-    Network.current.test();
-    }catch(Exception e){
-      e.printStackTrace();
-    }
   }
 
   /**
