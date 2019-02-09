@@ -16,7 +16,7 @@ import frc.robot.commands.ResetAll;
 import frc.robot.commands.VisionDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.OI;
-
+import frc.robot.pathing.Path;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+
   }
 
   /**
