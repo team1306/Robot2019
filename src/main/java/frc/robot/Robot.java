@@ -7,7 +7,10 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +23,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.OI;
 import frc.robot.subsystems.HatchTake;
 import frc.robot.subsystems.Climb;
-//import frc.robot.pathing.Path;
+import frc.robot.pathing.Path;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -55,6 +59,7 @@ public class Robot extends TimedRobot {
 
   }
   // Subsystems
+  public static AHRS gyro=null;
   public static DriveTrain driveTrain = new DriveTrain();
   public static HatchTake hatchTake = new HatchTake();
   public static Climb climb = new Climb();
@@ -70,6 +75,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    gyro=new AHRS(Port.kMXP);
   }
 
   /**
@@ -96,6 +102,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n",gyro.getPitch(),gyro.getYaw(),gyro.getRoll());
     Scheduler.getInstance().run();
   }
   
