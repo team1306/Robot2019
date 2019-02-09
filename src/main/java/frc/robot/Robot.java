@@ -14,9 +14,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.ResetAll;
 import frc.robot.commands.VisionDrive;
+import frc.robot.commands.HatchCommand;
+import frc.robot.commands.HatchGrabCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.OI;
-import frc.robot.pathing.Path;
+import frc.robot.subsystems.HatchTake;
+import frc.robot.subsystems.Climb;
+//import frc.robot.pathing.Path;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -35,11 +39,28 @@ public class Robot extends TimedRobot {
   public static Command visionDrive(){
     return new VisionDrive();
   }
+  public static Command hatchCommand()
+  {
+     return new HatchCommand();
+
+  }
+  public static Command climbCommand()
+  {
+     return new ClimbCommand();
+
+  }
+  public static Command hatchGrabCommand()
+  {
+     return new HatchGrabCommand();
+
+  }
   // Subsystems
   public static DriveTrain driveTrain = new DriveTrain();
+  public static HatchTake hatchTake = new HatchTake();
+  public static Climb climb = new Climb();
 
   // Array of all subsystems. Please add all new subsystems to this array
-  public final static Subsystem[] allSubsystems = { driveTrain };
+  public final static Subsystem[] allSubsystems = { driveTrain, hatchTake };
 
   public static OI oi = new OI();
 
@@ -76,9 +97,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
-
   }
-
+  
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
