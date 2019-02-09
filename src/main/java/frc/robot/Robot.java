@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    if(Math.sqrt(Math.pow(oi.primaryJoystick.getRawAxis(0),2) + Math.pow(oi.primaryJoystick.getRawAxis(1),2)) > .75) 
+    if(oi.primaryJoystick.getRawAxis(0)>0.75) 
     {
     autonomous.cancel();
     }
