@@ -8,50 +8,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import com.kauailabs.navx.frc.AHRS;
 import frc.robot.Robot;
-import frc.robot.util.RobotMap;
-/**
- * Command to drive the robot based on controller input.
- */
-public class AutonomousCommand extends Command {
 
-  AHRS ahrs;
-  public AutonomousCommand() {
+/**
+ * Command to Make the Hatch Intake Work
+ */
+public class HatchCommand extends Command {
+
+
+  public HatchCommand() {
     // Use requires() here to declare subsystem dependencies
-    for (int i = 0; i < Robot.allSubsystems.length; i++) {
-      requires(Robot.allSubsystems[i]);
-    }
+    requires(Robot.hatchTake);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+      
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(0.5, 0.5);
-    
-  }
+ Robot.hatchTake.toggles();
+    }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+  
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    cancel();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

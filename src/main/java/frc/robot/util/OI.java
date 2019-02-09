@@ -48,13 +48,21 @@ public class OI {
   public Joystick primaryJoystick=null;
   public Button cancelAll=null;
   public Button visionDrive=null;
+  public Button hatchTakeExtend = null;
+  public Button hatchTakeGrab = null;
+  public Button climb = null;
   public static final int driveSpeedAxis=1;
   public OI() {
     primaryJoystick = new Joystick(0);
 
     cancelAll = new JoystickButton(primaryJoystick, 7);
     cancelAll.whenPressed(Robot.reset());
-
+    hatchTakeExtend = new JoystickButton(primaryJoystick, 2);
+    hatchTakeExtend.whenPressed(Robot.hatchCommand());
+    hatchTakeGrab = new JoystickButton(primaryJoystick, 3);
+    hatchTakeGrab.whenPressed(Robot.hatchGrabCommand());
+    climb = new JoystickButton(primaryJoystick, 4);
+    climb.whenPressed(Robot.climbCommand());
     visionDrive= new JoystickButton(primaryJoystick, 1);
     visionDrive.whenPressed(Robot.visionDrive());
   }
