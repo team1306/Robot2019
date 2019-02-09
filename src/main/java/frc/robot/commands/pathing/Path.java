@@ -28,11 +28,11 @@ public abstract class Path extends Command {
     EncoderFollower leftFollower = null;
     EncoderFollower rightFollower = null;
 
-
     static final double wheelbaseWidth = 22 * 2.54 / 100;// Wheelbase width in meters
     static final double updateTime = Robot.kDefaultPeriod;
 
     public Path() {
+        requires(Robot.driveTrain);
         trajConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
                 updateTime, 1.7, 2.0, 60.0);
         trajectory = Pathfinder.generate(getWaypoints(), trajConfig);
@@ -54,6 +54,8 @@ public abstract class Path extends Command {
         leftEncoder = (() -> {
             return Robot.driveTrain.leftSensors.getQuadraturePosition();
         });
+
+        Robot.gyro.reset();
     }
 
     // Taken from
@@ -62,13 +64,12 @@ public abstract class Path extends Command {
     public void execute() {
         double left_speed = leftFollower.calculate(rightEncoder.get());
         double right_speed = rightFollower.calculate(leftEncoder.get());
-        // double heading = m_gyro.getAngle();
-        // double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
-        // double heading_difference = Pathfinder.boundHalfDegrees(desired_heading -
-        // heading);
-        // double turn = 0.8 * (-1.0/80.0) * heading_difference;
-        // m_left_motor.set(left_speed + turn);
-        // m_right_motor.set(right_speed - turn);
+        double heading = Robot.gyro.getYaw();
+        double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
+        double heading_difference = Pathfinder.boundHalfDegrees(desired_heading -
+        heading);
+        double turn = 0.8 * (-1.0/80.0) * heading_difference;
+        Robot.driveTrain.drive(left_speed + turn,right_speed - turn);
     }
 
     @Override
