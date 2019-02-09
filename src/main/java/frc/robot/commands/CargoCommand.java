@@ -8,20 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import com.kauailabs.navx.frc.AHRS;
 import frc.robot.Robot;
-import frc.robot.util.RobotMap;
+import frc.robot.subsystems.CargoTake;
 /**
  * Command to drive the robot based on controller input.
  */
-public class AutonomousCommand extends Command {
+public class CargoCommand extends Command {
 
-  AHRS ahrs;
-  public AutonomousCommand() {
+  public CargoCommand() {
     // Use requires() here to declare subsystem dependencies
-    for (int i = 0; i < Robot.allSubsystems.length; i++) {
-      requires(Robot.allSubsystems[i]);
-    }
+    requires(Robot.cargo);
   }
 
   // Called just before this Command runs the first time
@@ -32,8 +28,15 @@ public class AutonomousCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driveTrain.drive(0.5, 0.5);
-    
+    if(isFinished())
+    {
+        return;
+    }
+    Robot.cargo.intake();
+    if(Robot.cargo.limit())
+    {
+         end();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,13 +48,11 @@ public class AutonomousCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    cancel();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

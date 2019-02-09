@@ -25,6 +25,18 @@ public class RobotMap {
 
   public static final int LeftDriveFollower = 3;
   public static final int RightDriveFollower = 4;
+  
+  public static final int CamMotorLeft = 5;
+  public static final int CamMotorRight = 6;
+  
+  public static final int ForwardChannel1 = 1;
+  public static final int ReverseChannel1 = 2;
+  public static final int ForwardChannel2 = 3;
+  public static final int ReverseChannel2 = 4;
+  public static final int ForwardChannel3 = 5;
+  public static final int ReverseChannel3 = 6;
+  public static final int ForwardChannel4 = 0;
+  public static final int ReverseChannel4 = 7;
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
