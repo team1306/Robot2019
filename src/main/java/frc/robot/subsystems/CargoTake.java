@@ -36,13 +36,7 @@ public void raise()
 }
 public boolean limit()
 {
-    if(limiter.get() == true)
-    {
-        return true;
-    }
-    else{
-        return false;
-    }
+   return limiter.get();
 }
 
 @Override
