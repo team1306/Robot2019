@@ -17,29 +17,25 @@ public class RobotMap {
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
 
+  // Drive train
   public static final int LeftDriveLeader = 1;
-
   public static final int RightDriveLeader = 2;
   public static final int RightDriveQuadA = 21;
   public static final int RightDriveQuadB = 20;
-
   public static final int LeftDriveFollower = 3;
   public static final int RightDriveFollower = 4;
-  
+
+  // Cam motor
   public static final int CamMotorLeft = 5;
   public static final int CamMotorRight = 6;
-  
-  public static final int ForwardChannel1 = 1;
-  public static final int ReverseChannel1 = 2;
-  public static final int ForwardChannel2 = 3;
-  public static final int ReverseChannel2 = 4;
-  public static final int ForwardChannel3 = 5;
-  public static final int ReverseChannel3 = 6;
-  public static final int ForwardChannel4 = 0;
-  public static final int ReverseChannel4 = 7;
 
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
+  // Pneumatics for hatchtake
+  public static final int ExtendForward = 4;
+  public static final int ExtendReverse = 5;
+  public static final int GrabChannel = 1;
+  public static final int ReleaseChannel = 2;
+
+  // Cargo system
+  public static final int CargoArmMotor = 1234;
+  public static final int CargoWheelMotor = 4321;
 }

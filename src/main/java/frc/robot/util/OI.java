@@ -18,52 +18,56 @@ import frc.robot.Robot;
  */
 public class OI {
 
-  //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
-  // Joystick stick = new Joystick(port);
-  // Button button = new JoystickButton(stick, buttonNumber);
+  // Controller Map:
+  private static final int RTRIGGER = 3;// R Trigger: Forward Drive
+  private static final int LTRIGGER = 2;// L Trigger: Backward Drive
+  private static final int LTRIGGERBUTTON = 4;// L Trigger Button: Nothing
+  private static final int RTRIGGERBUTTON = 5;// R Trigger Button: Nothing
+  private static final int LJOYSTICKY = 1;
+  private static final int LJOYSTICKX = 0;// L Joystick: Directional Steering
+  private static final int RJOYSTICKY = 5;
+  private static final int RJOYSTICKX = 4;// R Joystick: Cargo wheel output
+  private static final int START = 7;// Start: Cancel All
+  private static final int X = 2;// X: Toggle Hatch Grab
+  private static final int Y = 3;// Y: Rocket Place
+  private static final int A = 0;// A: Cargo Up
+  private static final int B = 1;// B: Cargo Dow
 
-  // There are a few additional built in buttons you can use. Additionally,
-  // by subclassing Button you can create custom triggers and bind those to
-  // commands the same as any other Button.
+  public Joystick primaryJoystick = null;
+  public Joystick secondaryJoystick = null;
 
-  //// TRIGGERING COMMANDS WITH BUTTONS
-  // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways:
-
-  // Start the command when the button is pressed and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenPressed(new ExampleCommand());
-
-  // Run the command while the button is being held down and interrupt it once
-  // the button is released.
-  // button.whileHeld(new ExampleCommand());
-
-  // Start the command when the button is released and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenReleased(new ExampleCommand());
-  public Joystick primaryJoystick=null;
-  public Button cancelAll=null;
-  public Button visionDrive=null;
-  public Button hatchTakeExtend = null;
-  public Button hatchTakeGrab = null;
+  // Command Buttons
+  public Button cancelAll = null;
+  public Button visionDrive = null;
+  public Button toggleGrab = null;
+  public Button placeRocket = null;
   public Button climb = null;
-  public static final int driveSpeedAxis=1;
-  public OI() {
-    primaryJoystick = new Joystick(0);
+  public static final int driveSpeedAxis = 1;
 
-    cancelAll = new JoystickButton(primaryJoystick, 7);
+  public OI() {
+    // Initialize Joysticks
+    primaryJoystick = new Joystick(0);
+    secondaryJoystick = new Joystick(1);
+    // Command Buttons
+    // Cancel
+    cancelAll = new JoystickButton(primaryJoystick, START);
     cancelAll.whenPressed(Robot.reset());
-    hatchTakeExtend = new JoystickButton(primaryJoystick, 2);
-    hatchTakeExtend.whenPressed(Robot.hatchCommand());
-    hatchTakeGrab = new JoystickButton(primaryJoystick, 3);
-    hatchTakeGrab.whenPressed(Robot.hatchGrabCommand());
-    climb = new JoystickButton(primaryJoystick, 4);
-    climb.whenPressed(Robot.climbCommand());
-    visionDrive= new JoystickButton(primaryJoystick, 1);
+    // Hatch take
+    toggleGrab = new JoystickButton(primaryJoystick, X);
+    toggleGrab.whenPressed(Robot.toggleHatchGrab());
+    placeRocket = new JoystickButton(primaryJoystick, Y);
+    // Vision
+    visionDrive = new JoystickButton(primaryJoystick, 1);
     visionDrive.whenPressed(Robot.visionDrive());
+    /*
+     * Values are also being dynamicaly grabbed in the execute loop of varius
+     * functions. These values include:
+     * 
+     * - Primary Left Joystick value for driving
+     * 
+     * - Secondary Left joystick value for cargo intake/outake wheel value
+     * 
+     * - Secondary Left and Right trigger values for arm speed values.
+     */
   }
 }

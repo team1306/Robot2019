@@ -17,7 +17,7 @@ public class CargoCommand extends Command {
 
   public CargoCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.cargo);
+    requires(Robot.cargoTake);
   }
 
   // Called just before this Command runs the first time
@@ -28,21 +28,13 @@ public class CargoCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(isFinished())
-    {
-        return;
-    }
-    Robot.cargo.intake();
-    if(Robot.cargo.limit())
-    {
-         end();
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return  false;
   }
 
   // Called once after isFinished returns true

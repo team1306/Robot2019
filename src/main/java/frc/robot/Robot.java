@@ -9,21 +9,21 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.CargoCommand;
+import frc.robot.commands.ToggleHatchGrab;
+import frc.robot.commands.GrabHatchRocket;
 import frc.robot.commands.ResetAll;
 import frc.robot.commands.VisionDrive;
-import frc.robot.commands.HatchCommand;
-import frc.robot.commands.HatchGrabCommand;
+import frc.robot.subsystems.CargoTake;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.util.OI;
 import frc.robot.subsystems.HatchTake;
-import frc.robot.subsystems.Climb;
-import frc.robot.pathing.Path;
+import frc.robot.util.OI;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,36 +33,41 @@ import frc.robot.pathing.Path;
  * project.
  */
 public class Robot extends TimedRobot {
-  //NetworkTables
+  // NetworkTables
 
   // Commands
   public static Command autonomous = null;
-  public static Command reset(){
+
+  public static Command reset() {
     return new ResetAll();
   }
-  public static Command visionDrive(){
+
+  public static Command visionDrive() {
     return new VisionDrive();
   }
-  public static Command hatchCommand()
-  {
-     return new HatchCommand();
 
+  public static Command toggleHatchGrab() {
+    return new ToggleHatchGrab();
   }
-  public static Command climbCommand()
-  {
-     return new ClimbCommand();
 
+  public static Command placeRocketHatch() {
+    return new GrabHatchRocket();
   }
-  public static Command hatchGrabCommand()
-  {
-     return new HatchGrabCommand();
 
+  public static Command cargoCommand() {
+    return new CargoCommand();
   }
+  // public static Command climbCommand()
+  // {
+  // return new ClimbCommand();
+
+  // }
   // Subsystems
-  public static AHRS gyro=null;
+  public static AHRS gyro = null;
   public static DriveTrain driveTrain = new DriveTrain();
   public static HatchTake hatchTake = new HatchTake();
-  public static Climb climb = new Climb();
+  public static CargoTake cargoTake = new CargoTake();
+  // public static Climb climb = new Climb();
 
   // Array of all subsystems. Please add all new subsystems to this array
   public final static Subsystem[] allSubsystems = { driveTrain, hatchTake };
@@ -75,7 +80,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    gyro=new AHRS(Port.kMXP);
+    gyro = new AHRS(Port.kMXP);
   }
 
   /**
@@ -102,10 +107,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n",gyro.getPitch(),gyro.getYaw(),gyro.getRoll());
+    System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n", gyro.getPitch(), gyro.getYaw(), gyro.getRoll());
     Scheduler.getInstance().run();
   }
-  
+
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
@@ -121,18 +126,18 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
-    
+
     autonomous.start();
   }
+
   /**
    * This function is called periodically during autonomous.
    */
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    if(oi.primaryJoystick.getRawAxis(0)>0.75) 
-    {
-    autonomous.cancel();
+    if (Math.abs(oi.primaryJoystick.getRawAxis(0)) > 0.75) {
+      autonomous.cancel();
     }
   }
 

@@ -11,44 +11,25 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Command to Make the Hatch Intake Work
+ * Command to grab hatch from loading station
+ * 
+ * For placing on the rocket, see: GrabHatchRocket
  */
-public class HatchCommand extends Command {
+public class  ToggleHatchGrab extends Command {
 
-
-  public HatchCommand() {
+  public ToggleHatchGrab() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.hatchTake);
   }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-      
-  }
-
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
- Robot.hatchTake.toggles();
-    }
-  
+    Robot.hatchTake.toggleGrab();
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-  
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+    return true;
   }
 }

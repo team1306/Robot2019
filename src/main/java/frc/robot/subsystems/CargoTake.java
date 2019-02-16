@@ -1,47 +1,35 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import frc.robot.util.RobotMap;
-import frc.robot.commands.HatchCommand;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-public class CargoTake extends Subsystem
-{
 
-private WPI_TalonSRX mainmotor;
-private WPI_TalonSRX wheelmotor;
-private Timer time;
-private DigitalInput limiter;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.util.RobotMap;
 
-public CargoTake()
-{
-mainmotor = new WPI_TalonSRX(RobotMap.CargoMotorMain);
-wheelmotor = new WPI_TalonSRX(RobotMap.CargoMotorWheel);
-time = new Timer();
-// Switch for Limiter
+public class CargoTake extends Subsystem {
 
-}
-public void intake()
-{
-mainmotor.set(.5);
-wheelmotor.set(1);
+   private WPI_TalonSRX armMotor;
+   private Spark wheelMotor;
+   private DigitalInput limiter;
 
-}
-public void raise()
-{
-   mainmotor.set(-.5);
-   wheelmotor.set(-1);
+   public CargoTake() {
+      armMotor = new WPI_TalonSRX(RobotMap.CargoArmMotor);
+      wheelMotor = new Spark(RobotMap.CargoWheelMotor);
+   }
 
-}
-public boolean limit()
-{
-   return limiter.get();
-}
+   public void spinWheel(double value) {
+      wheelMotor.set(value);
+   }
 
-@Override
-protected void initDefaultCommand() {
-    setDefaultCommand(new HatchCommand());
-}
+   public void moveArm(double value){
+      armMotor.set(value);
+   }
+
+   @Override
+   protected void initDefaultCommand() {
+      setDefaultCommand(Robot.cargoCommand());
+   }
 
 }

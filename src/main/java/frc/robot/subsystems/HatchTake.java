@@ -1,68 +1,87 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.util.RobotMap;
-import frc.robot.commands.HatchCommand;
-public class HatchTake extends Subsystem
-{
-private int count;
-private DoubleSolenoid spanel1;
-private DoubleSolenoid spanel2;
-private DoubleSolenoid sgrab;
 
+public class HatchTake extends Subsystem {
+    private DoubleSolenoid extendSolenoid;
+    private DoubleSolenoid grabSolenoid;
 
-public HatchTake()
-{
-spanel1 = new DoubleSolenoid(RobotMap.ForwardChannel1, RobotMap.ReverseChannel1);
-spanel2 = new DoubleSolenoid(RobotMap.ForwardChannel2, RobotMap.ReverseChannel2);
-sgrab = new DoubleSolenoid(RobotMap.ForwardChannel3, RobotMap.ReverseChannel3);
+    /*
+     * Times for each action. Important for use in rocket placement, because we need
+     * to fully execute each segment of the operation before continuing on to the
+     * next.
+     */
+    public final double EXTENDTIME = 1.0;
+    public final double GRABTIME = 0.1;
+    public final double RELEASETIME = 0.1;
+    public final double RETRACTIME = 1.0;
 
-}
-public void extend()
-{
- spanel1.set(Value.kForward);
- spanel2.set(Value.kForward);
-}
-public void reverse()
-{
-spanel1.set(Value.kReverse);
-spanel2.set(Value.kReverse);
+    public HatchTake() {
+        extendSolenoid = new DoubleSolenoid(RobotMap.ExtendForward, RobotMap.ExtendReverse);
+        grabSolenoid = new DoubleSolenoid(RobotMap.GrabChannel, RobotMap.ReleaseChannel);
 
-}
-public void grab()
-{
-sgrab.set(Value.kForward);
-
-}
-public void release()
-{
-    sgrab.set(Value.kReverse);
-}
-public void toggle()
-{
-if(sgrab.get().equals(Value.kForward))
-{
-    release();
-}
-else{
-    grab();
-}
-
-}
-public void toggles()
-{
-    if(spanel1.get().equals(Value.kForward) && spanel2.get().equals(Value.kForward))
-    {
-        reverse();
     }
-    else{
-        extend();
-    }  
-}
-@Override
-protected void initDefaultCommand() {
-    setDefaultCommand(new HatchCommand());
-}
+
+    /**
+     * Extends the grabbing mechanism. Does not toggle grab.
+     */
+    public void extend() {
+        extendSolenoid.set(Value.kForward);
+    }
+
+    /**
+     * Retracts the grabbing mechanism. Does not toggle grab.
+     */
+    public void retract() {
+        extendSolenoid.set(Value.kReverse);
+
+    }
+
+    /**
+     * Widens the claws on the grabbing mechanism
+     */
+    public void grab() {
+        grabSolenoid.set(Value.kForward);
+
+    }
+
+    /**
+     * Narrow the grabbing mechanism to drop a hatch
+     */
+    public void release() {
+        grabSolenoid.set(Value.kReverse);
+    }
+
+    /**
+     * 
+     */
+    public void toggleGrab() {
+        if (grabSolenoid.get().equals(Value.kForward)) {
+            release();
+        } else {
+            grab();
+        }
+
+    }
+
+    /**
+     * Toggles the extension of the grabing mechanism. If extended, pulls back, and
+     * if near, pushes out.
+     */
+    public void toggleExtension() {
+        if (extendSolenoid.get().equals(Value.kForward)) {
+            retract();
+        } else {
+            extend();
+        }
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+        // Don't want default, is called on button.
+    }
 
 }
