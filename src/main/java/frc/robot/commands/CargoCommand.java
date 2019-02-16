@@ -28,7 +28,14 @@ public class CargoCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    if(Robot.oi.raiseArm.get()){
+      Robot.cargoTake.moveArm(0.5);
+    }else if(Robot.oi.lowerArm.get()){
+      Robot.cargoTake.moveArm(-0.5);
+    }else{
+      Robot.cargoTake.moveArm(0);
+    }
+    Robot.cargoTake.spinWheel(Robot.oi.primaryJoystick.getRawAxis(Robot.oi.RJOYSTICKY));
   }
 
   // Make this return true when this Command no longer needs to run execute()

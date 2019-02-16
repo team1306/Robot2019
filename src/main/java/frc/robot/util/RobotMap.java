@@ -20,14 +20,12 @@ public class RobotMap {
   // Drive train
   public static final int LeftDriveLeader = 1;
   public static final int RightDriveLeader = 2;
-  public static final int RightDriveQuadA = 21;
-  public static final int RightDriveQuadB = 20;
   public static final int LeftDriveFollower = 3;
   public static final int RightDriveFollower = 4;
 
   // Cam motor
-  public static final int CamMotorLeft = 5;
-  public static final int CamMotorRight = 6;
+  public static final int CamMotorLeft = 6;
+  public static final int CamMotorRight = 7;
 
   // Pneumatics for hatchtake
   public static final int ExtendForward = 4;
@@ -36,6 +34,6 @@ public class RobotMap {
   public static final int ReleaseChannel = 2;
 
   // Cargo system
-  public static final int CargoArmMotor = 1234;
-  public static final int CargoWheelMotor = 4321;
+  public static final int CargoArmMotor = 5;
+  public static final int CargoWheelMotor = 0;//PWM, not can
 }

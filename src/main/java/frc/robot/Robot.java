@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   // public static Climb climb = new Climb();
 
   // Array of all subsystems. Please add all new subsystems to this array
-  public final static Subsystem[] allSubsystems = { driveTrain, hatchTake };
+  public final static Subsystem[] allSubsystems = { driveTrain, hatchTake, cargoTake };
 
   public static OI oi = new OI();
 

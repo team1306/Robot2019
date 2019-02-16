@@ -16,6 +16,7 @@ public class CargoTake extends Subsystem {
 
    public CargoTake() {
       armMotor = new WPI_TalonSRX(RobotMap.CargoArmMotor);
+      armMotor.setInverted(true);
       wheelMotor = new Spark(RobotMap.CargoWheelMotor);
    }
 

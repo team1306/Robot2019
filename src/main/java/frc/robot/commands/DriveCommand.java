@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.util.OI;
 
 /**
  * Command to drive the robot based on controller input.
@@ -32,9 +33,9 @@ public class DriveCommand extends Command {
   protected void execute() {
     //Depending on the driver's preference, pass joystick values to drivetrain.
     if (isArcade) {
-      Robot.driveTrain.arcadeDrive(-Robot.oi.primaryJoystick.getRawAxis(1), Robot.oi.primaryJoystick.getRawAxis(0));
+      Robot.driveTrain.arcadeDrive(-Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKY), Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKX));
     } else {
-      Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(1), -Robot.oi.primaryJoystick.getRawAxis(5));
+      Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKY), -Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKX));
     }
   }
 
