@@ -42,8 +42,11 @@ public class OI {
   public Button toggleGrab = null;
   public Button placeRocket = null;
   public Button climb = null;
-  public Button raiseArm = null;
-  public Button lowerArm = null;
+  public Button armUp = null;
+  public Button armDown = null;
+  public Button wheelOut = null;
+  public Button wheelIn = null;
+  public Button reverseDrive = null;
   public static final int driveSpeedAxis = 1;
 
   public OI() {
@@ -57,24 +60,62 @@ public class OI {
     // Hatch take
     toggleGrab = new JoystickButton(primaryJoystick, X);
     toggleGrab.whenPressed(Robot.toggleHatchGrab());
-    placeRocket = new JoystickButton(primaryJoystick, Y);
-    placeRocket.whenPressed(Robot.placeRocketHatch());
-    //Cargo
-    raiseArm = new JoystickButton(primaryJoystick,A);
-    lowerArm = new JoystickButton(primaryJoystick, B);
+    // Cargo
+    armUp = new JoystickButton(secondaryJoystick, LTRIGGERBUTTON);
+    armDown = new JoystickButton(secondaryJoystick, RTRIGGERBUTTON);
+    wheelOut = new JoystickButton(secondaryJoystick, Y);
+    wheelIn = new JoystickButton(secondaryJoystick, B);
     // Vision
-    visionDrive = new JoystickButton(primaryJoystick, 1);
-    //visionDrive.whenPressed(Robot.visionDrive());
-
-    /*
-     * Values are also being dynamicaly grabbed in the execute loop of varius
-     * functions. These values include:
-     * 
-     * - Primary Left Joystick value for driving
-     * 
-     * - Secondary Left joystick value for cargo intake/outake wheel value
-     * 
-     * - Secondary Left and Right trigger values for arm speed values.
-     */
+    // visionDrive = new JoystickButton(primaryJoystick, 1);
+    // Drive
+    reverseDrive=new JoystickButton(primaryJoystick,LTRIGGERBUTTON);
   }
+
+  // Accessors
+  // Cargo
+  public double getArmPosition() {
+    if (armUp.get()) {
+      return Robot.cargoTake.PLACE;
+    } else if (armDown.get()) {
+      return (Robot.cargoTake.GROUND);
+    } else {
+      return 1;
+    }
+  }
+
+  public double getWheelRotation() {
+    if (wheelIn.get()) {
+      return 1;
+    } else if (wheelOut.get()) {
+      return -1;
+    }
+    return 0;
+  }
+
+  public double getArmOutput() {
+    if (armUp.get()) {
+      return 0.5;
+    } else if (armDown.get()) {
+      return -0.5;
+    } else {
+      return 0;
+    }
+  }
+
+  // Drive
+  public double getDriveVelocity() {
+    return -primaryJoystick.getRawAxis(LJOYSTICKY);
+  }
+
+  public double getDriveAngle() {
+    return primaryJoystick.getRawAxis(LJOYSTICKX);
+  }
+
+  // Hatch
+
+  public boolean getExtension() {
+    System.out.println(primaryJoystick.getRawAxis(RTRIGGER));
+    return primaryJoystick.getRawAxis(RTRIGGER) < 0.1;
+  }
+
 }

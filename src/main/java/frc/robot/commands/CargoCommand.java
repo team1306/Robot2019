@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.CargoTake;
 /**
  * Command to drive the robot based on controller input.
  */
@@ -28,20 +27,19 @@ public class CargoCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.oi.raiseArm.get()){
-      Robot.cargoTake.moveArm(0.5);
-    }else if(Robot.oi.lowerArm.get()){
-      Robot.cargoTake.moveArm(-0.5);
-    }else{
-      Robot.cargoTake.moveArm(0);
-    }
-    Robot.cargoTake.spinWheel(Robot.oi.primaryJoystick.getRawAxis(Robot.oi.RJOYSTICKY));
+    //Set goal position to something read from control
+    Robot.cargoTake.setPosition(Robot.oi.getArmPosition());
+    //Set to follow goal position
+    //Robot.cargoTake.updatePos();
+    Robot.cargoTake.setArmOutput(Robot.oi.getArmOutput());
+    //Set wheel output
+    Robot.cargoTake.spinWheel(Robot.oi.getWheelRotation());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return  false;
+    return false;
   }
 
   // Called once after isFinished returns true

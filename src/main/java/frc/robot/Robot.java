@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,9 +17,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CargoCommand;
-import frc.robot.commands.ToggleHatchGrab;
-import frc.robot.commands.GrabHatchRocket;
+import frc.robot.commands.HatchCommand;
 import frc.robot.commands.ResetAll;
+import frc.robot.commands.ToggleHatchGrab;
 import frc.robot.commands.VisionDrive;
 import frc.robot.subsystems.CargoTake;
 import frc.robot.subsystems.DriveTrain;
@@ -50,8 +51,8 @@ public class Robot extends TimedRobot {
     return new ToggleHatchGrab();
   }
 
-  public static Command placeRocketHatch() {
-    return new GrabHatchRocket();
+  public static Command hatchCommand() {
+    return new HatchCommand();
   }
 
   public static Command cargoCommand() {
@@ -81,6 +82,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     gyro = new AHRS(Port.kMXP);
+    //NetworkTableInstance.getDefault().startServer();
+    //CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -107,7 +110,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n", gyro.getPitch(), gyro.getYaw(), gyro.getRoll());
+    //System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n", gyro.getPitch(), gyro.getYaw(), gyro.getRoll());
     Scheduler.getInstance().run();
   }
 
@@ -127,7 +130,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
 
-    autonomous.start();
+    //autonomous.start();
   }
 
   /**
@@ -154,6 +157,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    if (!hatchTake.getExtension()) {
+      oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+    }else{
+        oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+    }
   }
 
   /**

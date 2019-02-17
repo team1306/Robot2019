@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.util.RobotMap;
 
 public class HatchTake extends Subsystem {
@@ -24,12 +26,16 @@ public class HatchTake extends Subsystem {
         grabSolenoid = new DoubleSolenoid(RobotMap.GrabChannel, RobotMap.ReleaseChannel);
 
     }
-
+    private boolean forward=false;
+    private boolean grab=false;
     /**
      * Extends the grabbing mechanism. Does not toggle grab.
      */
     public void extend() {
         extendSolenoid.set(Value.kForward);
+        forward=true;
+        Timer.delay(0.1);
+        extendSolenoid.set(Value.kOff);
     }
 
     /**
@@ -37,15 +43,25 @@ public class HatchTake extends Subsystem {
      */
     public void retract() {
         extendSolenoid.set(Value.kReverse);
-
+        forward=false;
+        Timer.delay(0.1);
+        extendSolenoid.set(Value.kOff);
     }
 
+    /**
+     * @return true if the hatch is out
+     */
+    public boolean getExtension(){
+        return forward;
+    }
     /**
      * Widens the claws on the grabbing mechanism
      */
     public void grab() {
         grabSolenoid.set(Value.kForward);
-
+        grab=true;
+        Timer.delay(0.03);
+        grabSolenoid.set(Value.kOff);
     }
 
     /**
@@ -53,18 +69,20 @@ public class HatchTake extends Subsystem {
      */
     public void release() {
         grabSolenoid.set(Value.kReverse);
+        grab=false;
+        Timer.delay(0.03);
+        grabSolenoid.set(Value.kOff);
     }
 
     /**
      * 
      */
     public void toggleGrab() {
-        if (grabSolenoid.get().equals(Value.kForward)) {
+        if (grab) {
             release();
         } else {
             grab();
         }
-
     }
 
     /**
@@ -81,7 +99,7 @@ public class HatchTake extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        // Don't want default, is called on button.
+        this.setDefaultCommand(Robot.hatchCommand());
     }
 
 }

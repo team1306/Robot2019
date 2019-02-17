@@ -13,25 +13,26 @@ import frc.robot.Robot;
 /**
  * Command to Make the Hatch Intake Work
  */
-public class GrabHatchRocket extends Command {
+public class HatchCommand extends Command {
 
 
-  public GrabHatchRocket() {
+  public HatchCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.hatchTake);
+    System.out.println("Hatch Command");
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-      //Ensure that claw is in release position to slip into hatch
-      Robot.hatchTake.release();
-  }
+  protected void initialize() {  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      Robot.hatchTake.toggleExtension();
+    System.out.println("executing");
+      if(Robot.hatchTake.getExtension()!=Robot.oi.getExtension()){
+        Robot.hatchTake.toggleExtension();
+      }
     }
   
 
@@ -39,7 +40,7 @@ public class GrabHatchRocket extends Command {
   @Override
   protected boolean isFinished() {
   
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

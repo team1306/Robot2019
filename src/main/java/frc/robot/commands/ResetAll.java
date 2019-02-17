@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 
@@ -35,6 +36,7 @@ public class ResetAll extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        Scheduler.getInstance().removeAll();
     }
 
     // Make this return true when this Command no longer needs to run execute()

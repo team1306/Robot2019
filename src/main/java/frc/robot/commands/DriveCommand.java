@@ -32,11 +32,7 @@ public class DriveCommand extends Command {
   @Override
   protected void execute() {
     //Depending on the driver's preference, pass joystick values to drivetrain.
-    if (isArcade) {
-      Robot.driveTrain.arcadeDrive(-Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKY), Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKX));
-    } else {
-      Robot.driveTrain.drive(-Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKY), -Robot.oi.primaryJoystick.getRawAxis(OI.LJOYSTICKX));
-    }
+      Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),Robot.oi.getDriveAngle());
   }
 
   // Make this return true when this Command no longer needs to run execute()
