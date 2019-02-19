@@ -19,6 +19,7 @@ import frc.robot.util.RobotMap;
 /**
  * Drivetrain subsystem to drive the robot. Uses DifferentialDrive
  */
+
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -89,7 +90,6 @@ public class DriveTrain extends Subsystem {
   public void arcadeDrive(double speed, double rotation) {
     if (reverse) {
       speed = -speed;
-      rotation = -rotation;
     }
     tankDrive.arcadeDrive(speed, rotation);
   }

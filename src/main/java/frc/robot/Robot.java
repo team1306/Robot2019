@@ -106,6 +106,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    hatchTake.release();
+    hatchTake.retract();
   }
 
   @Override
@@ -157,7 +159,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    if (!hatchTake.getExtension()) {
+    if (!hatchTake.getGrabbing()) {
       oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
     }else{
         oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
