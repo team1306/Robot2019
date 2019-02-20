@@ -131,7 +131,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
-
+    hatchTake.release();
     //autonomous.start();
   }
 
@@ -159,7 +159,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    if (!hatchTake.getGrabbing()) {
+    if (hatchTake.getGrabbing()) {
       oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
     }else{
         oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);

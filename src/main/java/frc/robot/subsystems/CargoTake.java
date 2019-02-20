@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,12 +17,15 @@ public class CargoTake extends Subsystem {
    public static final int PLACE = 1;
 
    private WPI_TalonSRX armMotor;
+   private WPI_VictorSPX armMotorFollower;
    private Spark wheelMotor;
    private double pos = 0;
 
    public CargoTake() {
       armMotor = new WPI_TalonSRX(RobotMap.CargoArmMotor);
-      armMotor.setInverted(false);
+      armMotorFollower = new WPI_VictorSPX(RobotMap.CargoArmFollowerMotor);
+      armMotorFollower.follow(armMotor);
+      armMotorFollower.setInverted(true);
       armMotor.getSensorCollection().setQuadraturePosition(0,0);
       wheelMotor = new Spark(RobotMap.CargoWheelMotor);
    }

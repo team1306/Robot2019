@@ -35,5 +35,6 @@ public class RobotMap {
 
   // Cargo system
   public static final int CargoArmMotor = 5;
+  public static final int CargoArmFollowerMotor = 8;
   public static final int CargoWheelMotor = 0;//PWM, not can
 }

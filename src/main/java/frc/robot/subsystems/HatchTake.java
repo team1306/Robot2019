@@ -24,7 +24,6 @@ public class HatchTake extends Subsystem {
     public HatchTake() {
         extendSolenoid = new DoubleSolenoid(RobotMap.ExtendForward, RobotMap.ExtendReverse);
         grabSolenoid = new DoubleSolenoid(RobotMap.GrabChannel, RobotMap.ReleaseChannel);
-        grabSolenoid.set(Value.kReverse);
     }
     private boolean forward=false;
     private boolean grab=false;

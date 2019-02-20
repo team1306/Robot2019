@@ -33,6 +33,9 @@ public class DriveCommand extends Command {
   protected void execute() {
     //Depending on the driver's preference, pass joystick values to drivetrain.
       Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),Robot.oi.getDriveAngle());
+      if(Robot.oi.visionEnabled()){
+        Robot.visionDrive().start();
+      }
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.commands.ReverseDrive;
+import frc.robot.commands.VisionDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -67,7 +68,8 @@ public class OI {
     wheelOut = new JoystickButton(secondaryJoystick, Y);
     wheelIn = new JoystickButton(secondaryJoystick, B);
     // Vision
-    // visionDrive = new JoystickButton(primaryJoystick, 1);
+    visionDrive = new JoystickButton(primaryJoystick, 2);
+    visionDrive.whenPressed(new VisionDrive());
     // Drive
     reverseDrive=new JoystickButton(primaryJoystick,LTRIGGERBUTTON);
     reverseDrive.whenPressed(new ReverseDrive());
@@ -112,12 +114,16 @@ public class OI {
   public double getDriveAngle() {
     return primaryJoystick.getRawAxis(LJOYSTICKX);
   }
-
+  
+  public boolean visionEnabled(){
+    return primaryJoystick.getRawAxis(LTRIGGER)>0.5;
+  }
   // Hatch
 
   public boolean getExtension() {
     System.out.println(primaryJoystick.getRawAxis(RTRIGGER));
     return primaryJoystick.getRawAxis(RTRIGGER) < 0.1;
   }
+
 
 }
