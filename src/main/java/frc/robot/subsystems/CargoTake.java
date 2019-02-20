@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -23,9 +24,11 @@ public class CargoTake extends Subsystem {
 
    public CargoTake() {
       armMotor = new WPI_TalonSRX(RobotMap.CargoArmMotor);
+      armMotor.setNeutralMode(NeutralMode.Brake);
       armMotorFollower = new WPI_VictorSPX(RobotMap.CargoArmFollowerMotor);
-      armMotorFollower.follow(armMotor);
+      armMotorFollower.setNeutralMode(NeutralMode.Brake);
       armMotorFollower.setInverted(true);
+      armMotorFollower.follow(armMotor);
       armMotor.getSensorCollection().setQuadraturePosition(0,0);
       wheelMotor = new Spark(RobotMap.CargoWheelMotor);
    }
