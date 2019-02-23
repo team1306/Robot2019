@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+/* branch check
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -114,7 +115,7 @@ public class OI {
   public double getDriveAngle() {
     return primaryJoystick.getRawAxis(LJOYSTICKX);
   }
-  
+
   public boolean visionEnabled(){
     return primaryJoystick.getRawAxis(LTRIGGER)>0.5;
   }
