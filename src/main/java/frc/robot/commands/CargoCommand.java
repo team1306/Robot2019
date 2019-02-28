@@ -27,12 +27,8 @@ public class CargoCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Set goal position to something read from control
-    Robot.cargoTake.setPosition(Robot.oi.getArmPosition());
-    //Set to follow goal position
-    //Robot.cargoTake.updatePos();
+    
     Robot.cargoTake.setArmOutput(Robot.oi.getArmOutput());
-    //Set wheel output
     Robot.cargoTake.spinWheel(Robot.oi.getWheelRotation());
   }
 

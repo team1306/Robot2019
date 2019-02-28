@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Robot;
 import frc.robot.commands.ReverseDrive;
 import frc.robot.commands.VisionDrive;
+import frc.robot.subsystems.CargoTake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -79,9 +80,9 @@ public class OI {
   // Cargo
   public double getArmPosition() {
     if (armUp.get()) {
-      return Robot.cargoTake.PLACE;
+      return CargoTake.PLACE;
     } else if (armDown.get()) {
-      return (Robot.cargoTake.GROUND);
+      return CargoTake.GROUND;
     } else {
       return 1;
     }

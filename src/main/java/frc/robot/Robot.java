@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -82,7 +83,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     gyro = new AHRS(Port.kMXP);
-    //NetworkTableInstance.getDefault().startServer();
+    NetworkTableInstance.getDefault().startServer();
     //CameraServer.getInstance().startAutomaticCapture();
   }
 

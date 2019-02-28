@@ -28,10 +28,10 @@ public class RobotMap {
   public static final int CamMotorRight = 7;
 
   // Pneumatics for hatchtake
-  public static final int ExtendForward = 0;
-  public static final int ExtendReverse = 1;
-  public static final int GrabChannel = 2;
-  public static final int ReleaseChannel = 3;
+  public static final int ExtendForward = 4;
+  public static final int ExtendReverse = 5;
+  public static final int GrabChannel = 6;
+  public static final int ReleaseChannel = 7;
 
   // Cargo system
   public static final int CargoArmMotor = 5;

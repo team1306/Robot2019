@@ -3,8 +3,8 @@ package frc.robot.commands.pathing;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
@@ -17,9 +17,18 @@ interface Encoder {
  * A class for initializing and executing paths.
  */
 public abstract class Path extends Command {
+
+    private static final double wheelbaseWidth = 0.5588;// = 22 * 2.54 / 100, Wheelbase width in meters
+    private static final double updateTime = Robot.kDefaultPeriod;
+    private static final int LEFT = 0;
+    private static final int RIGHT = 1;
+    // Names for use in path creation 
+    public static final String RIGHTCARGOTOLOADING = "RightLoadingToCargoGeneric";
+    public static final String LEFTCARGOTOLOADING = "LeftLoadingToCargoGeneric";
+    public static final String CENTERTOLEFTLOADING = "";
     // Instance code and methods
     Trajectory.Config trajConfig = null;
-    Trajectory trajectory = null;
+    Trajectory[] trajectories = null;
     Trajectory left = null;
     Trajectory right = null;
 
@@ -28,25 +37,21 @@ public abstract class Path extends Command {
     EncoderFollower leftFollower = null;
     EncoderFollower rightFollower = null;
 
-    static final double wheelbaseWidth = 22 * 2.54 / 100;// Wheelbase width in meters
-    static final double updateTime = Robot.kDefaultPeriod;
+    private String pathName = null;
 
-    public Path() {
+    public Path(String name) {
         requires(Robot.driveTrain);
+        pathName = name;
         trajConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
                 updateTime, 1.7, 2.0, 60.0);
-        trajectory = Pathfinder.generate(getWaypoints(), trajConfig);
+        trajectories = getTrajectory();
     }
 
     @Override
     public void initialize() {
-        TankModifier modifier = new TankModifier(trajectory).modify(wheelbaseWidth);
-        // get individual side trajectories
-        left = modifier.getLeftTrajectory();
-        right = modifier.getRightTrajectory();
         // Set following paths
-        leftFollower = new EncoderFollower(left);
-        rightFollower = new EncoderFollower(right);
+        leftFollower = new EncoderFollower(trajectories[LEFT]);
+        rightFollower = new EncoderFollower(trajectories[RIGHT]);
         // get encoder lambdas
         rightEncoder = (() -> {
             return Robot.driveTrain.rightSensors.getQuadraturePosition();
@@ -66,10 +71,9 @@ public abstract class Path extends Command {
         double right_speed = rightFollower.calculate(leftEncoder.get());
         double heading = Robot.gyro.getYaw();
         double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
-        double heading_difference = Pathfinder.boundHalfDegrees(desired_heading -
-        heading);
-        double turn = 0.8 * (-1.0/80.0) * heading_difference;
-        Robot.driveTrain.drive(left_speed + turn,right_speed - turn);
+        double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
+        double turn = 0.8 * (-1.0 / 80.0) * heading_difference;
+        Robot.driveTrain.drive(left_speed + turn, right_speed - turn);
     }
 
     @Override
@@ -78,7 +82,12 @@ public abstract class Path extends Command {
     }
 
     /**
-     * @return an array of points to follow
+     * @return Trajectory[] {left, right}
      */
-    abstract Waypoint[] getWaypoints();
+    private Trajectory[] getTrajectory() {
+        Trajectory left = PathfinderFRC.getTrajectory(pathName + ".left.pf1.csv");
+        Trajectory right = PathfinderFRC.getTrajectory(pathName + ".right.pf1.csv");
+        return new Trajectory[] { left, right };
+    }
+
 }
