@@ -42,8 +42,8 @@ public class ResetAll extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        //Do not restore defaults until button released
-        return (!Robot.oi.cancelAll.get());
+        //Do not restore defaults until button released, which will cancel this
+        return false;
     }
 
     // Called once after isFinished returns true

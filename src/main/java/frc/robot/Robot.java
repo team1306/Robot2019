@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -25,6 +27,8 @@ import frc.robot.subsystems.CargoTake;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchTake;
 import frc.robot.util.OI;
+import frc.robot.util.StickArcadeOI;
+import frc.robot.util.TriggerArcadeOI;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,8 +38,23 @@ import frc.robot.util.OI;
  * project.
  */
 public class Robot extends TimedRobot {
-  // NetworkTables
-
+  // Driver/OI pairings
+  private static final int STICKARCADE = 0;
+  private static final int TRIGGERARCADE = 1;
+  // Drivers
+  private static final int WALKER = TRIGGERARCADE;
+  private static final int EGAN = STICKARCADE;
+  private static final int ETHAN = TRIGGERARCADE;
+  /*
+   * .._____................................_....._____........._.................
+   * ./.____|..............................|.|...|..__.\.......(_)................
+   * |.|....._..._.._.__.._.__..___.._.__..|.|_..|.|..|.|._.__.._.__...__.___.._.
+   * |.|....|.|.|.||.'__||.'__|/._.\|.'_.\.|.__|.|.|..|.||.'__||.|\.\././/._.\|.'|
+   * |.|____|.|_|.||.|...|.|..|..__/|.|.|.||.|_..|.|__|.||.|...|.|.\.V./|..__/|.|.
+   * .\_____|\__,_||_|...|_|...\___||_|.|_|.\__|.|_____/.|_|...|_|..\_/..\___||_|
+   * .\/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
+   */
+  private static int currentDriver = WALKER;
   // Commands
   public static Command autonomous = null;
 
@@ -73,7 +92,7 @@ public class Robot extends TimedRobot {
   // Array of all subsystems. Please add all new subsystems to this array
   public final static Subsystem[] allSubsystems = { driveTrain, hatchTake, cargoTake };
 
-  public static OI oi = new OI();
+  public static OI oi = null;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -81,9 +100,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    switch (currentDriver) {
+    case TRIGGERARCADE:
+      oi = new TriggerArcadeOI();
+      break;
+    case STICKARCADE:
+      oi = new StickArcadeOI();
+      break;
+    default:
+      oi = new TriggerArcadeOI();
+      break;
+    }
     gyro = new AHRS(Port.kMXP);
-    //NetworkTableInstance.getDefault().startServer();
-    //CameraServer.getInstance().startAutomaticCapture();
+    NetworkTableInstance.getDefault().startServer();
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -112,7 +142,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    //System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n", gyro.getPitch(), gyro.getYaw(), gyro.getRoll());
+    // System.out.printf("Pitch:%f, Yaw:%f, Roll:%f\n", gyro.getPitch(),
+    // gyro.getYaw(), gyro.getRoll());
     Scheduler.getInstance().run();
   }
 
@@ -132,7 +163,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
     hatchTake.release();
-    //autonomous.start();
+    // autonomous.start();
   }
 
   /**
@@ -161,8 +192,8 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     if (hatchTake.getGrabbing()) {
       oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
-    }else{
-        oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+    } else {
+      oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
     }
   }
 

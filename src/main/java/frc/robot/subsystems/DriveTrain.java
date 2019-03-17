@@ -53,6 +53,7 @@ public class DriveTrain extends Subsystem {
 
     // Initialize DifferentialDrive object for use later
     tankDrive = new DifferentialDrive(leftLeader, rightLeader);
+    tankDrive.setDeadband(0.05);
   }
 
   /**

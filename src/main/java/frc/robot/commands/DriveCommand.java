@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.util.OI;
 
 /**
  * Command to drive the robot based on controller input.
@@ -32,7 +31,8 @@ public class DriveCommand extends Command {
   @Override
   protected void execute() {
     //Depending on the driver's preference, pass joystick values to drivetrain.
-      Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),Robot.oi.getDriveAngle());
+      double driveAngle=Robot.oi.getDriveAngle();
+      Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),Math.pow(driveAngle*Math.abs(driveAngle),5));
       if(Robot.oi.visionEnabled()){
         Robot.visionDrive().start();
       }

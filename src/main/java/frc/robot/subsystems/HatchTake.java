@@ -33,7 +33,7 @@ public class HatchTake extends Subsystem {
     public void extend() {
         extendSolenoid.set(Value.kForward);
         forward=true;
-        Timer.delay(0.1);
+        Timer.delay(0.01);
         extendSolenoid.set(Value.kOff);
     }
 
@@ -43,7 +43,7 @@ public class HatchTake extends Subsystem {
     public void retract() {
         extendSolenoid.set(Value.kReverse);
         forward=false;
-        Timer.delay(0.1);
+        Timer.delay(0.01);
         extendSolenoid.set(Value.kOff);
     }
 
@@ -59,7 +59,7 @@ public class HatchTake extends Subsystem {
     public void grab() {
         grabSolenoid.set(Value.kForward);
         grab=true;
-        Timer.delay(0.03);
+        Timer.delay(0.01);
         grabSolenoid.set(Value.kOff);
     }
 
@@ -69,7 +69,7 @@ public class HatchTake extends Subsystem {
     public void release() {
         grabSolenoid.set(Value.kReverse);
         grab=false;
-        Timer.delay(0.03);
+        Timer.delay(0.01);
         grabSolenoid.set(Value.kOff);
     }
 
