@@ -32,7 +32,7 @@ public class DriveCommand extends Command {
   protected void execute() {
     //Depending on the driver's preference, pass joystick values to drivetrain.
       double driveAngle=Robot.oi.getDriveAngle();
-      Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),Math.pow(driveAngle*Math.abs(driveAngle),5));
+      Robot.driveTrain.arcadeDrive(Robot.oi.getDriveVelocity(),driveAngle);
       if(Robot.oi.visionEnabled()){
         Robot.visionDrive().start();
       }

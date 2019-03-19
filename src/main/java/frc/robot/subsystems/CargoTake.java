@@ -11,7 +11,7 @@ import frc.robot.util.RobotMap;
 
 public class CargoTake extends Subsystem {
 
-   private static final int encoderUppermost = 0;
+   private static final int encoderUppermost = 20;
    private static final int encoderLowermost = 2542;// TODO
    /*
     * Start: 0 Place:545 Ground:2191 Breaks gears: 2542
@@ -43,9 +43,9 @@ public class CargoTake extends Subsystem {
    public void setArmOutput(double value) {
       int encoderValue = getEncoderValue();
       if (encoderValue < encoderUppermost+10) {
-         value = Math.min(0, value);// Cannot move up more
+         value = Math.max(0, value);// Cannot move up more
       } else if (encoderValue > encoderLowermost-10) {
-         value = Math.max(0, value);// Cannot move down more
+         value = Math.min(0, value);// Cannot move down more
       }
       if (Math.abs(value) > 0.1) {
          armMotor.set(value);

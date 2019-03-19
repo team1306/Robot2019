@@ -93,24 +93,30 @@ public class Robot extends TimedRobot {
   public final static Subsystem[] allSubsystems = { driveTrain, hatchTake, cargoTake };
 
   public static OI oi = null;
+  public static OI getOI(){
+    switch (currentDriver) {
+      case TRIGGERARCADE:
+        return new TriggerArcadeOI();
+      case STICKARCADE:
+        return new StickArcadeOI();
+      default:
+        return new TriggerArcadeOI();
+      }
+  }
 
+  public Robot(){
+    super();
+    if(oi==null){
+      oi=getOI();
+    }
+  }
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-    switch (currentDriver) {
-    case TRIGGERARCADE:
-      oi = new TriggerArcadeOI();
-      break;
-    case STICKARCADE:
-      oi = new StickArcadeOI();
-      break;
-    default:
-      oi = new TriggerArcadeOI();
-      break;
-    }
+  
     gyro = new AHRS(Port.kMXP);
     NetworkTableInstance.getDefault().startServer();
     CameraServer.getInstance().startAutomaticCapture();

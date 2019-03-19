@@ -5,15 +5,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class TriggerArcadeOI extends OI {
 
-    Button hatchGrab = null;
-    Button extendHatch = null;
-    Button visionEnable = null;
-    Button changeDirection = null;
-    Button cancelAll = null;
-    Button armUp = null;
-    Button armDown = null;
-    Button wheelOut = null;
-    Button wheelIn = null;
+    private Button hatchGrab = null;
+    private Button extendHatch = null;
+    private Button visionEnable = null;
+    private Button changeDirection = null;
+    private Button cancelAll = null;
+    private Button armUp = null;
+    private Button armDown = null;
+    private Button wheelOut = null;
+    private Button wheelIn = null;
 
     @Override
     void initializeButtons() {
@@ -62,12 +62,17 @@ public class TriggerArcadeOI extends OI {
 
     @Override
     public boolean visionEnabled() {
-        return visionEnable.get();
+        try {
+            return visionEnable.get();
+        } catch (NullPointerException e) {
+            initializeButtons();
+            return visionEnabled();
+        }
     }
 
     @Override
     public boolean getExtension() {
-        return primaryJoystick.getRawButton(RTRIGGERBUTTON);
+        return extendHatch.get();
     }
 
     @Override
