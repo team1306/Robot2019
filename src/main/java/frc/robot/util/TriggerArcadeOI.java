@@ -72,7 +72,12 @@ public class TriggerArcadeOI extends OI {
 
     @Override
     public Button getCancelButton() {
+        if(cancelAll!=null){
         return cancelAll;
+        }else{
+            System.out.println("!!! Cancelall null");
+            return new JoystickButton(primaryJoystick, START);
+        }
     }
 
     @Override

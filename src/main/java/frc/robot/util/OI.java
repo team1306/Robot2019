@@ -44,6 +44,8 @@ public abstract class OI {
     // Initialize Joysticks
     primaryJoystick = new Joystick(0);
     secondaryJoystick = new Joystick(1);
+    initializeButtons();
+
     // Command Buttons
     // Cancel
     Command cancel = new ResetAll();
