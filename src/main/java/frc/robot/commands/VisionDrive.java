@@ -59,10 +59,10 @@ public class VisionDrive extends Command {
     case "c":
       break;// Centered, do nothing
     case "r":
-      turnVal -= 0.85;
+      turnVal -= 0.65;
       break;// left, see above multiline comment
     case "l":
-      turnVal += 0.85;
+      turnVal += 0.65;
       break;// right, see above multiline comment
     case "u":
       break;// unkown, do nothing

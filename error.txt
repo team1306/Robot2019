@@ -1,0 +1,8 @@
+lang.NullPointerException 
+ 	at frc.robot.commands.DriveCommand.execute(DriveCommand.java:34) 
+ 	at edu.wpi.first.wpilibj.command.Command.run(Command.java:292) 
+ 	at edu.wpi.first.wpilibj.command.Scheduler.run(Scheduler.java:224) 
+ 	at frc.robot.Robot.teleopPeriodic(Robot.java:192) 
+ 	at edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc(IterativeRobotBase.java:240) 
+ 	at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:81) 
+Warning  1  Robots should not quit, but yours did!  edu.wpi.first.wpilibj.RobotBase.startRobot(Ro

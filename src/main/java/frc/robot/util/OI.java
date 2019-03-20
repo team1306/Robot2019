@@ -30,8 +30,8 @@ public abstract class OI {
   protected static final int LJOYSTICKX = 0;
   protected static final int RJOYSTICKY = 5;
   protected static final int RJOYSTICKX = 4;
-  protected static final int START = 7;
-  protected static final int BACK = 8;
+  protected static final int START = 8;
+  protected static final int BACK = 7;
   protected static final int X = 3;
   protected static final int Y = 4;
   protected static final int A = 1;
@@ -45,11 +45,11 @@ public abstract class OI {
     primaryJoystick = new Joystick(0);
     secondaryJoystick = new Joystick(1);
     initializeButtons();
-
     // Command Buttons
     // Cancel
     Command cancel = new ResetAll();
     Button cancelButton = getCancelButton();
+    try{
     cancelButton.whenPressed(cancel);
     cancelButton.whenReleased(new Command() {
 
@@ -63,7 +63,10 @@ public abstract class OI {
         return true;
       }
 
-    });
+    });}catch(NullPointerException e){
+      e.printStackTrace();
+      System.out.println("OI null");
+    }
     // Hatch take
     getGrabToggleButton().whenPressed(new ToggleHatchGrab());
     // Vision

@@ -17,16 +17,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class StickArcadeOI extends OI {
 
   // Command Buttons
-  public Button cancelAll = null;
-  public Button visionDrive = null;
-  public Button toggleGrab = null;
-  public Button placeRocket = null;
-  public Button climb = null;
-  public Button armUp = null;
-  public Button armDown = null;
-  public Button wheelOut = null;
-  public Button wheelIn = null;
-  public Button reverseDrive = null;
+  private Button cancelAll = null;
+  private Button visionDrive = null;
+  private Button toggleGrab = null;
+  private Button armUp = null;
+  private Button armDown = null;
+  private Button wheelOut = null;
+  private Button wheelIn = null;
+  private Button reverseDrive = null;
   public static final int driveSpeedAxis = 1;
 
   @Override
@@ -62,6 +60,7 @@ public class StickArcadeOI extends OI {
 
   @Override
   public double getArmOutput() {
+    try{
     if (armUp.get()) {
       return 0.5;
     } else if (armDown.get()) {
@@ -69,6 +68,10 @@ public class StickArcadeOI extends OI {
     } else {
       return 0;
     }
+  }catch(NullPointerException e){
+    initializeButtons();
+    return getArmOutput();
+  }
   }
 
   // Drive
