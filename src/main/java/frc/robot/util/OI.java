@@ -26,6 +26,8 @@ public abstract class OI {
   protected static final int LTRIGGER = 2;
   protected static final int LTRIGGERBUTTON = 5;
   protected static final int RTRIGGERBUTTON = 6;
+  protected static final int RBUMPER=RTRIGGERBUTTON;
+  protected static final int LBUMPER=LTRIGGERBUTTON;
   protected static final int LJOYSTICKY = 1;
   protected static final int LJOYSTICKX = 0;
   protected static final int RJOYSTICKY = 5;

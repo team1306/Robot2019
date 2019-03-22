@@ -3,7 +3,7 @@ package frc.robot.util;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class TriggerArcadeOI extends OI {
+public class TandemExtensionOI extends OI {
 
     private Button hatchGrab = null;
     private Button extendHatch = null;
@@ -72,7 +72,7 @@ public class TriggerArcadeOI extends OI {
 
     @Override
     public boolean getExtension() {
-        return extendHatch.get();
+        return extendHatch.get()||secondaryJoystick.getRawButton(A);
     }
 
     @Override

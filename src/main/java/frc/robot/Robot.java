@@ -28,6 +28,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchTake;
 import frc.robot.util.OI;
 import frc.robot.util.StickArcadeOI;
+import frc.robot.util.TandemExtensionOI;
 import frc.robot.util.TriggerArcadeOI;
 
 /**
@@ -41,8 +42,9 @@ public class Robot extends TimedRobot {
   // Driver/OI pairings
   private static final int STICKARCADE = 0;
   private static final int TRIGGERARCADE = 1;
+  private static final int TANDEMEXTENSION = 2;
   // Drivers
-  private static final int WALKER = TRIGGERARCADE;
+  private static final int WALKER = TANDEMEXTENSION;
   private static final int EGAN = STICKARCADE;
   private static final int ETHAN = TRIGGERARCADE;
   /*
@@ -99,6 +101,8 @@ public class Robot extends TimedRobot {
         return new TriggerArcadeOI();
       case STICKARCADE:
         return new StickArcadeOI();
+      case TANDEMEXTENSION:
+        return new TandemExtensionOI();
       default:
         return new TriggerArcadeOI();
       }
