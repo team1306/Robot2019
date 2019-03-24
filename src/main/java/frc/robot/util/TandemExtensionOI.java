@@ -42,9 +42,9 @@ public class TandemExtensionOI extends OI {
     @Override
     public double getArmOutput() {
         if (armUp.get()) {
-            return 0.5;
+            return 1;
         } else if (armDown.get()) {
-            return -0.5;
+            return -1;
         } else {
             return 0;
         }

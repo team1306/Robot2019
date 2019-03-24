@@ -62,9 +62,9 @@ public class StickArcadeOI extends OI {
   public double getArmOutput() {
     try{
     if (armUp.get()) {
-      return 0.5;
+      return 1;
     } else if (armDown.get()) {
-      return -0.5;
+      return -1;
     } else {
       return 0;
     }
