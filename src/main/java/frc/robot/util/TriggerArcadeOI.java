@@ -41,13 +41,8 @@ public class TriggerArcadeOI extends OI {
 
     @Override
     public double getArmOutput() {
-        if (armUp.get()) {
-            return 1;
-        } else if (armDown.get()) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return secondaryJoystick.getRawAxis(LJOYSTICKY);
+
     }
 
     @Override

@@ -60,18 +60,12 @@ public class StickArcadeOI extends OI {
 
   @Override
   public double getArmOutput() {
-    try{
-    if (armUp.get()) {
-      return 1;
-    } else if (armDown.get()) {
-      return -1;
-    } else {
-      return 0;
+    try {
+      return secondaryJoystick.getRawAxis(LJOYSTICKY);
+    } catch (NullPointerException e) {
+      initializeButtons();
+      return getArmOutput();
     }
-  }catch(NullPointerException e){
-    initializeButtons();
-    return getArmOutput();
-  }
   }
 
   // Drive
@@ -79,6 +73,7 @@ public class StickArcadeOI extends OI {
   public double getDriveVelocity() {
     return -primaryJoystick.getRawAxis(LJOYSTICKY);
   }
+
   @Override
   public double getDriveAngle() {
     return primaryJoystick.getRawAxis(LJOYSTICKX);
@@ -88,6 +83,7 @@ public class StickArcadeOI extends OI {
   public boolean visionEnabled() {
     return primaryJoystick.getRawAxis(LTRIGGER) > 0.5;
   }
+
   // Hatch
   @Override
   public boolean getExtension() {
