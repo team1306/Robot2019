@@ -124,6 +124,7 @@ public class Robot extends TimedRobot {
     gyro = new AHRS(Port.kMXP);
     NetworkTableInstance.getDefault().startServer();
     CameraServer.getInstance().startAutomaticCapture();
+
   }
 
   /**
@@ -140,6 +141,7 @@ public class Robot extends TimedRobot {
   }
 
   /**
+   * 
    * This function is called once each time the robot enters Disabled mode. You
    * can use it to reset any subsystem information you want to clear when the
    * robot is disabled.
@@ -163,7 +165,7 @@ public class Robot extends TimedRobot {
    * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
    * remove all of the chooser code and uncomment the getString code to get the
    * auto name from the text box below the Gyro
-   * 
+   *  
    * <p>
    * You can add additional auto modes by adding additional commands to the
    * chooser code above (like the commented example) or additional comparisons to
@@ -172,7 +174,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
-    hatchTake.release();
+    hatchTake.grab();
+    DriveTrain.reverse=true;//drive toward hatch side
     // autonomous.start();
   }
 

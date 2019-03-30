@@ -7,4 +7,5 @@ public class Names{
     public static final String visionPositionName="Position";
 
     public static final String driveDirectionName="SmartDashboard.DB.Button 0";
+    public static final String toggleHatchName="SmartDashboard.DB.Button 1";
 }

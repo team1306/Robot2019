@@ -145,4 +145,6 @@ public abstract class OI {
    * @return button to be bound with starting vision
    */
   public abstract Button getVisionStartButton();
+
+  public abstract Boolean enableCargoLimit();
 }

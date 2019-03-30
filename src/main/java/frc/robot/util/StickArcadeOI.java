@@ -51,9 +51,9 @@ public class StickArcadeOI extends OI {
   @Override
   public double getWheelRotation() {
     if (wheelIn.get()) {
-      return 1;
-    } else if (wheelOut.get()) {
       return -1;
+    } else if (wheelOut.get()) {
+      return 1;
     }
     return 0;
   }
@@ -109,6 +109,11 @@ public class StickArcadeOI extends OI {
   @Override
   public Button getVisionStartButton() {
     return visionDrive;
+  }
+
+  @Override
+  public Boolean enableCargoLimit() {
+    return secondaryJoystick.getRawButton(X);
   }
 
 }

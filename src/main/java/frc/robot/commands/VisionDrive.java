@@ -43,7 +43,7 @@ public class VisionDrive extends Command {
     NetworkTableEntry angleEntry = ntable.getEntry(Names.visionCenterAngleName);
 
     // start calculations for pathing
-    double turnVal = Math.min(Math.max(1.5 * (double) (angleEntry.getNumber(0.0)), -0.45), 0.45);
+    double turnVal = 1.3*Math.min(Math.max(1.5 * (double) (angleEntry.getNumber(0.0)), -0.45), 0.45);
     // If left, add to value to turn right. If right, subtract.
     String position = ntable.getEntry(Names.visionPositionName).getString("u");// default to key unknown
     /*
@@ -59,10 +59,10 @@ public class VisionDrive extends Command {
     case "c":
       break;// Centered, do nothing
     case "r":
-      turnVal -= 0.65;
+      turnVal -= 0.25;
       break;// left, see above multiline comment
     case "l":
-      turnVal += 0.65;
+      turnVal += 0.25;
       break;// right, see above multiline comment
     case "u":
       break;// unkown, do nothing

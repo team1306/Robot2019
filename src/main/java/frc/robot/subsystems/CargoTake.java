@@ -11,10 +11,10 @@ import frc.robot.util.RobotMap;
 
 public class CargoTake extends Subsystem {
 
-   private static final int encoderUppermost = 20;
-   private static final int encoderLowermost = 2542;// TODO
+   private static final int encoderUppermost = 720;
+   private static final int encoderLowermost = 2406;// TODO
    /*
-    * Start: 0 Place:545 Ground:2191 Breaks gears: 2542
+    * Practice Bot: Start: 0 Place:700 Ground:2156 Breaks gears: 2542
     */
 
    public static final int GROUND = -1;
@@ -42,9 +42,9 @@ public class CargoTake extends Subsystem {
 
    public void setArmOutput(double value) {
       int encoderValue = getEncoderValue();
-      if (encoderValue < encoderUppermost+10) {
+      if (((encoderValue < encoderUppermost + 10)&&(!Robot.oi.enableCargoLimit()))||encoderValue<10) {
          value = Math.max(0, value);// Cannot move up more
-      } else if (encoderValue > encoderLowermost-10) {
+      } else if (encoderValue > encoderLowermost - 10) {
          value = Math.min(0, value);// Cannot move down more
       }
       if (Math.abs(value) > 0.1) {
