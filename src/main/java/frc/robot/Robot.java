@@ -9,6 +9,9 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -123,8 +126,10 @@ public class Robot extends TimedRobot {
   
     gyro = new AHRS(Port.kMXP);
     NetworkTableInstance.getDefault().startServer();
-    CameraServer.getInstance().startAutomaticCapture();
-
+    UsbCamera camera=CameraServer.getInstance().startAutomaticCapture();
+    camera.setBrightness(50);
+    camera.setVideoMode(new VideoMode(PixelFormat.kMJPEG,  180, 120, 20));
+    //camera.setResolution(320, 240);
   }
 
   /**
