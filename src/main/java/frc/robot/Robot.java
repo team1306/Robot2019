@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CargoCommand;
@@ -32,6 +31,7 @@ import frc.robot.subsystems.CargoTake;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchTake;
 import frc.robot.util.OI;
+import frc.robot.util.SafetyOI;
 import frc.robot.util.StickArcadeOI;
 import frc.robot.util.TandemExtensionOI;
 import frc.robot.util.TriggerArcadeOI;
@@ -48,10 +48,12 @@ public class Robot extends TimedRobot {
   private static final int STICKARCADE = 0;
   private static final int TRIGGERARCADE = 1;
   private static final int TANDEMEXTENSION = 2;
+  private static final int SAFETY = 3;
   // Drivers
   private static final int WALKER = TANDEMEXTENSION;
   private static final int EGAN = STICKARCADE;
   private static final int ETHAN = TRIGGERARCADE;
+  private static final int OUTREACH = SAFETY;
   /*
    * .._____................................_....._____........._.................
    * ./.____|..............................|.|...|..__.\.......(_)................
@@ -61,7 +63,7 @@ public class Robot extends TimedRobot {
    * .\_____|\__,_||_|...|_|...\___||_|.|_|.\__|.|_____/.|_|...|_|..\_/..\___||_|
    * .\/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
    */
-  private static int currentDriver = WALKER;
+  private static int currentDriver = OUTREACH;
   // Commands
   public static Command autonomous = null;
 
@@ -109,6 +111,8 @@ public class Robot extends TimedRobot {
       return new StickArcadeOI();
     case TANDEMEXTENSION:
       return new TandemExtensionOI();
+    case SAFETY:
+      return new SafetyOI();
     default:
       return new TriggerArcadeOI();
     }
@@ -137,7 +141,7 @@ public class Robot extends TimedRobot {
 
     // child saftey settings
     SmartDashboard.putNumber("DB/Slider 0", 5);
-    SmartDashboard.putString("DB/String 5","Slider 0: Robot Speed");
+    SmartDashboard.putString("DB/String 5", "Slider 0: Robot Speed");
   }
 
   /**
@@ -217,7 +221,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     if (hatchTake.getGrabbing()) {
-      oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+      //oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
     } else {
       oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
     }

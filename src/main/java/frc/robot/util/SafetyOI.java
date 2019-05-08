@@ -7,9 +7,10 @@ import frc.robot.commands.ResetAll;
 
 public class SafetyOI extends OI {
     JoystickButton wheelIn, wheelOut, toggleExtension;
-
+    JoystickButton[] secondaryButtons;
     @Override
     void initializeButtons() {
+        secondaryButtons=new JoystickButton[10];
         wheelIn = new JoystickButton(primaryJoystick, A);
         wheelOut = new JoystickButton(primaryJoystick, B);
 
@@ -30,7 +31,7 @@ public class SafetyOI extends OI {
         // Make every button on secondary cancel
         Command cancel = new ResetAll();
         for (int i = 1; i < 11; i++) {
-            if (!(i == A)) {// A is handeled in abstract method
+            if (!(i == A)) {// A is handeled in overriden method
                 JoystickButton button = new JoystickButton(secondaryJoystick, i);
                 button.whenPressed(cancel);
                 button.whenReleased(new Command() {
@@ -45,6 +46,7 @@ public class SafetyOI extends OI {
                         return true;
                     }
                 });
+                secondaryButtons[i-1]=button;
             }
         }
     }
@@ -71,7 +73,7 @@ public class SafetyOI extends OI {
 
     @Override
     public double getDriveAngle() {
-        return primaryJoystick.getRawAxis(X);
+        return primaryJoystick.getRawAxis(LJOYSTICKX);
     }
 
     @Override

@@ -37,6 +37,7 @@ public class ResetAll extends Command {
     @Override
     protected void execute() {
         Scheduler.getInstance().removeAll();
+        Scheduler.getInstance().add(this);
     }
 
     // Make this return true when this Command no longer needs to run execute()
