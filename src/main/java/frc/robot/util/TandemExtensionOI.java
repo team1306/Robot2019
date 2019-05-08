@@ -97,7 +97,7 @@ public class TandemExtensionOI extends OI {
 
     @Override
     public Boolean enableCargoLimit() {
-        return secondaryJoystick.getRawButton(X);
+        return !secondaryJoystick.getRawButton(X);
     }
 
 }

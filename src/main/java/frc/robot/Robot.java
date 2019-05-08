@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CargoCommand;
 import frc.robot.commands.HatchCommand;
@@ -98,38 +100,44 @@ public class Robot extends TimedRobot {
   public final static Subsystem[] allSubsystems = { driveTrain, hatchTake, cargoTake };
 
   public static OI oi = null;
-  public static OI getOI(){
-    switch (currentDriver) {
-      case TRIGGERARCADE:
-        return new TriggerArcadeOI();
-      case STICKARCADE:
-        return new StickArcadeOI();
-      case TANDEMEXTENSION:
-        return new TandemExtensionOI();
-      default:
-        return new TriggerArcadeOI();
-      }
-  }
 
-  public Robot(){
-    super();
-    if(oi==null){
-      oi=getOI();
+  public static OI getOI() {
+    switch (currentDriver) {
+    case TRIGGERARCADE:
+      return new TriggerArcadeOI();
+    case STICKARCADE:
+      return new StickArcadeOI();
+    case TANDEMEXTENSION:
+      return new TandemExtensionOI();
+    default:
+      return new TriggerArcadeOI();
     }
   }
+
+  public Robot() {
+    super();
+    if (oi == null) {
+      oi = getOI();
+    }
+  }
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
   @Override
   public void robotInit() {
-  
+
     gyro = new AHRS(Port.kMXP);
     NetworkTableInstance.getDefault().startServer();
-    UsbCamera camera=CameraServer.getInstance().startAutomaticCapture();
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
     camera.setBrightness(50);
-    camera.setVideoMode(new VideoMode(PixelFormat.kMJPEG,  180, 120, 20));
-    //camera.setResolution(320, 240);
+    camera.setVideoMode(new VideoMode(PixelFormat.kMJPEG, 180, 120, 20));
+    // camera.setResolution(320, 240);
+
+    // child saftey settings
+    SmartDashboard.putNumber("DB/Slider 0", 5);
+    SmartDashboard.putString("DB/String 5","Slider 0: Robot Speed");
   }
 
   /**
@@ -170,7 +178,7 @@ public class Robot extends TimedRobot {
    * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
    * remove all of the chooser code and uncomment the getString code to get the
    * auto name from the text box below the Gyro
-   *  
+   * 
    * <p>
    * You can add additional auto modes by adding additional commands to the
    * chooser code above (like the commented example) or additional comparisons to
@@ -180,7 +188,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     autonomous = new AutonomousCommand();
     hatchTake.grab();
-    DriveTrain.reverse=true;//drive toward hatch side
+    DriveTrain.reverse = false;// drive toward hatch side
     // autonomous.start();
   }
 

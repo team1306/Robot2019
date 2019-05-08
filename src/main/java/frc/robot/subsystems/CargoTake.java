@@ -42,8 +42,12 @@ public class CargoTake extends Subsystem {
 
    public void setArmOutput(double value) {
       int encoderValue = getEncoderValue();
-      if (((encoderValue < encoderUppermost + 10)&&(!Robot.oi.enableCargoLimit()))||encoderValue<10) {
-         value = Math.max(0, value);// Cannot move up more
+      if (encoderValue < encoderUppermost + 10) {
+         if(Robot.oi.enableCargoLimit()||encoderValue<10){
+            value = Math.max(0, value);// Cannot move up more
+         }else{
+            value = Math.max(-0.3, value);// move up more, but slowly
+         }
       } else if (encoderValue > encoderLowermost - 10) {
          value = Math.min(0, value);// Cannot move down more
       }

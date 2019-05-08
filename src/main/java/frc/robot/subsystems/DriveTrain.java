@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveCommand;
 import frc.robot.util.RobotMap;
 
@@ -92,6 +94,10 @@ public class DriveTrain extends Subsystem {
     if (reverse) {
       speed = -speed;
     }
+    double speedMultiplyer=(SmartDashboard.getNumber("DB/Slider 0", 5)/5)*0.4+0.6;
+    double turnMultiplyer=(SmartDashboard.getNumber("DB/Slider 0", 5)/5)*0.2+0.8;
+    speed=speed*speedMultiplyer;
+    rotation=rotation*turnMultiplyer;
     tankDrive.arcadeDrive(speed, rotation);
   }
 
