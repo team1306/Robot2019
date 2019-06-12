@@ -20,8 +20,6 @@ public class StickArcadeOI extends OI {
   private Button cancelAll = null;
   private Button visionDrive = null;
   private Button toggleGrab = null;
-  private Button armUp = null;
-  private Button armDown = null;
   private Button wheelOut = null;
   private Button wheelIn = null;
   private Button reverseDrive = null;
@@ -35,8 +33,6 @@ public class StickArcadeOI extends OI {
     // Hatch take
     toggleGrab = new JoystickButton(primaryJoystick, X);
     // Cargo
-    armUp = new JoystickButton(secondaryJoystick, LTRIGGERBUTTON);
-    armDown = new JoystickButton(secondaryJoystick, RTRIGGERBUTTON);
     wheelOut = new JoystickButton(secondaryJoystick, Y);
     wheelIn = new JoystickButton(secondaryJoystick, B);
     // Vision

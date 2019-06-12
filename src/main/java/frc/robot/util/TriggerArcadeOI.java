@@ -10,8 +10,6 @@ public class TriggerArcadeOI extends OI {
     private Button visionEnable = null;
     private Button changeDirection = null;
     private Button cancelAll = null;
-    private Button armUp = null;
-    private Button armDown = null;
     private Button wheelOut = null;
     private Button wheelIn = null;
 
@@ -23,8 +21,6 @@ public class TriggerArcadeOI extends OI {
         changeDirection = new JoystickButton(primaryJoystick, LTRIGGERBUTTON);
         cancelAll = new JoystickButton(primaryJoystick, START);
         // Cargo
-        armUp = new JoystickButton(secondaryJoystick, LTRIGGERBUTTON);
-        armDown = new JoystickButton(secondaryJoystick, RTRIGGERBUTTON);
         wheelOut = new JoystickButton(secondaryJoystick, Y);
         wheelIn = new JoystickButton(secondaryJoystick, B);
     }

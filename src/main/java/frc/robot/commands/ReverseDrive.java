@@ -1,9 +1,7 @@
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.util.Names;
 
 public class ReverseDrive extends Command {
     @Override
