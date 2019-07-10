@@ -26,8 +26,8 @@ public abstract class OI {
   protected static final int LTRIGGER = 2;
   protected static final int LTRIGGERBUTTON = 5;
   protected static final int RTRIGGERBUTTON = 6;
-  protected static final int RBUMPER=RTRIGGERBUTTON;
-  protected static final int LBUMPER=LTRIGGERBUTTON;
+  protected static final int RBUMPER = RTRIGGERBUTTON;
+  protected static final int LBUMPER = LTRIGGERBUTTON;
   protected static final int LJOYSTICKY = 1;
   protected static final int LJOYSTICKX = 0;
   protected static final int RJOYSTICKY = 5;
@@ -39,8 +39,20 @@ public abstract class OI {
   protected static final int A = 1;
   protected static final int B = 2;
 
+  protected static final int BUTTON1 = 1;
+  protected static final int BUTTON2 = 2;
+  protected static final int BUTTON3 = 3;
+  protected static final int BUTTON4 = 4;
+  protected static final int BUTTON5 = 5;
+  protected static final int BUTTON6 = 6;
+  protected static final int BUTTON7 = 7;
+  protected static final int BUTTON8 = 8;
+  protected static final int JOYX = 10;
+  protected static final int JOYY = 11;
+
   public Joystick primaryJoystick = null;
   public Joystick secondaryJoystick = null;
+  // public Joystick secondaryJoystick = null;
 
   public OI() {
     // Initialize Joysticks
@@ -51,21 +63,22 @@ public abstract class OI {
     // Cancel
     Command cancel = new ResetAll();
     Button cancelButton = getCancelButton();
-    try{
-    cancelButton.whenPressed(cancel);
-    cancelButton.whenReleased(new Command() {
+    try {
+      cancelButton.whenPressed(cancel);
+      cancelButton.whenReleased(new Command() {
 
-      @Override
-      protected void execute() {
-        cancel.cancel();
-      }
+        @Override
+        protected void execute() {
+          cancel.cancel();
+        }
 
-      @Override
-      protected boolean isFinished() {
-        return true;
-      }
+        @Override
+        protected boolean isFinished() {
+          return true;
+        }
 
-    });}catch(NullPointerException e){
+      });
+    } catch (NullPointerException e) {
       e.printStackTrace();
       System.out.println("OI null");
     }

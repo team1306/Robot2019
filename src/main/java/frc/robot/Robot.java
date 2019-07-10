@@ -35,6 +35,7 @@ import frc.robot.util.SafetyOI;
 import frc.robot.util.StickArcadeOI;
 import frc.robot.util.TandemExtensionOI;
 import frc.robot.util.TriggerArcadeOI;
+import frc.robot.util.GamepadOI;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,11 +50,13 @@ public class Robot extends TimedRobot {
   private static final int TRIGGERARCADE = 1;
   private static final int TANDEMEXTENSION = 2;
   private static final int SAFETY = 3;
+  private static final int GAMEPAD = 4;
   // Drivers
   private static final int WALKER = TANDEMEXTENSION;
   private static final int EGAN = STICKARCADE;
   private static final int ETHAN = TRIGGERARCADE;
   private static final int OUTREACH = SAFETY;
+  private static final int MATEO = GAMEPAD;
   /*
    * .._____................................_....._____........._.................
    * ./.____|..............................|.|...|..__.\.......(_)................
@@ -63,7 +66,7 @@ public class Robot extends TimedRobot {
    * .\_____|\__,_||_|...|_|...\___||_|.|_|.\__|.|_____/.|_|...|_|..\_/..\___||_|
    * .\/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
    */
-  private static int currentDriver = OUTREACH;
+  private static int currentDriver = MATEO;
   // Commands
   public static Command autonomous = null;
 
@@ -113,6 +116,8 @@ public class Robot extends TimedRobot {
       return new TandemExtensionOI();
     case SAFETY:
       return new SafetyOI();
+    case GAMEPAD:
+      return new GamepadOI();
     default:
       return new TriggerArcadeOI();
     }
@@ -221,7 +226,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     if (hatchTake.getGrabbing()) {
-      //oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
+      // oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 1);
     } else {
       oi.primaryJoystick.setRumble(GenericHID.RumbleType.kRightRumble, 0);
     }
