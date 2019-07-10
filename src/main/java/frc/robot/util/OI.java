@@ -14,6 +14,8 @@ import frc.robot.commands.ResetAll;
 import frc.robot.commands.ReverseDrive;
 import frc.robot.commands.ToggleHatchGrab;
 import frc.robot.commands.VisionDrive;
+import frc.robot.util.gamepadController;
+import frc.robot.util.xboxController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,42 +24,44 @@ import frc.robot.commands.VisionDrive;
 public abstract class OI {
 
   // Controller Map:
-  protected static final int RTRIGGER = 3;
-  protected static final int LTRIGGER = 2;
-  protected static final int LTRIGGERBUTTON = 5;
-  protected static final int RTRIGGERBUTTON = 6;
-  protected static final int RBUMPER = RTRIGGERBUTTON;
-  protected static final int LBUMPER = LTRIGGERBUTTON;
-  protected static final int LJOYSTICKY = 1;
-  protected static final int LJOYSTICKX = 0;
-  protected static final int RJOYSTICKY = 5;
-  protected static final int RJOYSTICKX = 4;
-  protected static final int START = 8;
-  protected static final int BACK = 7;
-  protected static final int X = 3;
-  protected static final int Y = 4;
-  protected static final int A = 1;
-  protected static final int B = 2;
 
-  protected static final int BUTTON1 = 1;
-  protected static final int BUTTON2 = 2;
-  protected static final int BUTTON3 = 3;
-  protected static final int BUTTON4 = 4;
-  protected static final int BUTTON5 = 5;
-  protected static final int BUTTON6 = 6;
-  protected static final int BUTTON7 = 7;
-  protected static final int BUTTON8 = 8;
-  protected static final int JOYX = 10;
-  protected static final int JOYY = 11;
+  // now implemented in helper classes
+  // protected static final int RTRIGGER = 3;
+  // protected static final int LTRIGGER = 2;
+  // protected static final int LTRIGGERBUTTON = 5;
+  // protected static final int RTRIGGERBUTTON = 6;
+  // protected static final int RBUMPER = RTRIGGERBUTTON;
+  // protected static final int LBUMPER = LTRIGGERBUTTON;
+  // protected static final int LJOYSTICKY = 1;
+  // protected static final int LJOYSTICKX = 0;
+  // protected static final int RJOYSTICKY = 5;
+  // protected static final int RJOYSTICKX = 4;
+  // protected static final int START = 8;
+  // protected static final int BACK = 7;
+  // protected static final int X = 3;
+  // protected static final int Y = 4;
+  // protected static final int A = 1;
+  // protected static final int B = 2;
 
-  public Joystick primaryJoystick = null;
-  public Joystick secondaryJoystick = null;
+  // protected static final int BUTTON1 = 1;
+  // protected static final int BUTTON2 = 2;
+  // protected static final int BUTTON3 = 3;
+  // protected static final int BUTTON4 = 4;
+  // protected static final int BUTTON5 = 5;
+  // protected static final int BUTTON6 = 6;
+  // protected static final int BUTTON7 = 7;
+  // protected static final int BUTTON8 = 8;
+  // protected static final int JOYX = 10;
+  // protected static final int JOYY = 11;
+
+  public xboxController primaryJoystick = null;
+  public gamepadController secondaryJoystick = null;
   // public Joystick secondaryJoystick = null;
 
   public OI() {
     // Initialize Joysticks
-    primaryJoystick = new Joystick(0);
-    secondaryJoystick = new Joystick(1);
+    primaryJoystick = new xboxController(0);
+    secondaryJoystick = new gamepadController(1);
     initializeButtons();
     // Command Buttons
     // Cancel
